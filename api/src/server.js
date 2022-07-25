@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const auth = require('../handler/auth');
 const user = require('../handler/users');
+const movie = require('../handler/movies');
 
 const app = express();
 dotenv.config();
@@ -10,6 +11,7 @@ dotenv.config();
 app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/users', user);
+app.use('/movies', movie);
 
 mongoose
   .connect(process.env.MONGO_URL, {
