@@ -121,4 +121,23 @@ router.get('/random', verifyUser, async (req, res) => {
   }
 });
 
+// Get all movie
+router.get('/', verifyUser, async (req, res) => {
+  if (req.user.is_admin) {
+    try {
+      const movies = await Movie.find();
+      res.status(200).json({
+        status: 'success',
+        message: 'Movies fetched successfully',
+        data: movies,
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+  }
+});
+
 module.exports = router;
