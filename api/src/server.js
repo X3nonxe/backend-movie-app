@@ -10,10 +10,10 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
-app.use('/auth', auth);
-app.use('/users', user);
-app.use('/movies', movie);
-app.use('/list', list);
+app.use('/api/auth', auth);
+app.use('/api/users', user);
+app.use('/api/movies', movie);
+app.use('/api/lists', list);
 
 mongoose
   .connect(process.env.MONGO_URL, {
