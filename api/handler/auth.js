@@ -76,13 +76,13 @@ router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (req.body.email.length < 1 || req.body.password.length < 1) {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'failed to login',
         message: 'Email or password is required',
       });
     }
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'failed to login',
         message: 'User does not exist',
       });
@@ -91,7 +91,7 @@ router.post('/login', async (req, res) => {
     const passwordUser = decryptedPassword.toString(CryptoJS.enc.Utf8);
 
     if (passwordUser !== req.body.password) {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'failed to login',
         message: 'Password is incorrect',
       });

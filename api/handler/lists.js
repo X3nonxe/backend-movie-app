@@ -8,18 +8,22 @@ router.post('/', verifyUser, async (req, res) => {
     const listMovie = new List(req.body);
     try {
       const result = await listMovie.save();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'List created successfully',
         data: result,
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
     }
   }
+  return res.status(401).json({
+    status: 'error',
+    message: 'You are not authorized to perform this action',
+  });
 });
 
 // Get List
@@ -49,16 +53,11 @@ router.get('/', verifyUser, async (req, res) => {
       data: list,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: err.message,
     });
   }
-  // other problems
-  return res.status(500).json({
-    status: 'error',
-    message: 'Something went wrong',
-  });
 });
 
 // Delete List
@@ -66,17 +65,21 @@ router.delete('/:id', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
     try {
       await List.findByIdAndDelete(req.params.id);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'List deleted successfully',
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
     }
   }
+  return res.status(401).json({
+    status: 'error',
+    message: 'You are not authorized to perform this action',
+  });
 });
 
 module.exports = router;

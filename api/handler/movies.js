@@ -8,13 +8,13 @@ router.post('/', verifyUser, async (req, res) => {
     const movie = new Movie(req.body);
     try {
       const result = await movie.save();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Movie created successfully',
         data: result,
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
@@ -35,13 +35,13 @@ router.put('/:id', verifyUser, async (req, res) => {
         { $set: req.body },
         { new: true },
       );
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Movie updated successfully',
         data: result,
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
@@ -58,12 +58,12 @@ router.delete('/:id', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
     try {
       await Movie.findByIdAndDelete(req.params.id);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Delete movie successfully',
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
@@ -79,13 +79,13 @@ router.delete('/:id', verifyUser, async (req, res) => {
 router.get('/:id', verifyUser, async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'Movie fetched successfully',
       data: movie,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: err.message,
     });
@@ -108,13 +108,13 @@ router.get('/random', verifyUser, async (req, res) => {
         { $sample: { size: 1 } },
       ]);
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'Movie fetched successfully',
       data: movies,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: err.message,
     });
@@ -126,18 +126,22 @@ router.get('/', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
     try {
       const movies = await Movie.find();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Movies fetched successfully',
         data: movies,
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: err.message,
       });
     }
   }
+  return res.status(403).json({
+    status: 'failed',
+    message: 'You are not authorized to perform this action',
+  });
 });
 
 module.exports = router;

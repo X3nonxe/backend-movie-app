@@ -47,12 +47,12 @@ router.delete('/:id', verifyUser, async (req, res) => {
   if (req.user.id === req.params.id || req.user.is_admin) {
     try {
       await User.findByIdAndDelete(req.params.id);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Successfully to delete account',
       });
     } catch (err) {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'failed',
         message: err.message,
       });
@@ -69,13 +69,13 @@ router.get('/find/:id', verifyUser, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...info } = user._doc;
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'Successfully get user',
       data: info,
     });
   } catch (err) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 'failed',
       message: err.message,
     });
@@ -89,13 +89,13 @@ router.get('/', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
     try {
       const users = query ? await User.find().sort({ _id: -1 }).limit(5) : await User.find();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'Successfully to get all account',
         data: users,
       });
     } catch (err) {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'failed',
         message: err.message,
       });
@@ -129,13 +129,13 @@ router.get('/stats', async (req, res) => {
         };
       }),
     };
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'Successfully to get all account',
       data: usersStats,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'failed',
       message: err.message,
     });
