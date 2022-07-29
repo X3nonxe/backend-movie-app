@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const auth = require('../handler/auth');
 const user = require('../handler/users');
 const movie = require('../handler/movies');
@@ -10,6 +11,7 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cors());
 app.use('/api/auth', auth);
 app.use('/api/users', user);
 app.use('/api/movies', movie);

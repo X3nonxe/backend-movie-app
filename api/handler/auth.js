@@ -74,6 +74,30 @@ router.post('/register', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
+    const schema = Joi.object({
+      email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+      password: Joi.string().min(8).max(16).pattern(/^[a-zA-Z0-9]{3,30}$/)
+        .required(),
+    });
+    if (req.body.email.length < 1) {
+      return res.status(400).json({
+        status: 'failed to register',
+        message: 'Email is required',
+      });
+    }
+    if (req.body.password.length < 1) {
+      return res.status(400).json({
+        status: 'failed to register',
+        message: 'Password is required',
+      });
+    }
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: 'failed to register',
+        message: error.details[0].message,
+      });
+    }
     const user = await User.findOne({ email: req.body.email });
     if (req.body.email.length < 1 || req.body.password.length < 1) {
       return res.status(400).json({

@@ -1,11 +1,48 @@
 /* eslint-disable no-underscore-dangle */
 const router = require('express').Router();
 const CryptoJS = require('crypto-js');
+const Joi = require('joi');
 const User = require('../models/Users');
 const verifyUser = require('../src/verifyToken');
 
 // Update user by id
 router.put('/:id', verifyUser, async (req, res) => {
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(30).required(),
+    password: Joi.string()
+      .min(8)
+      .max(30)
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
+      .required(),
+    email: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+      .required(),
+  });
+  if (req.body.email.length < 1) {
+    return res.status(400).json({
+      status: 'failed to update',
+      message: 'Email is required',
+    });
+  }
+  if (req.body.password.length < 1) {
+    return res.status(400).json({
+      status: 'failed to update',
+      message: 'Password is required',
+    });
+  }
+  if (req.body.username.length < 1) {
+    return res.status(400).json({
+      status: 'failed to update',
+      message: 'Username is required',
+    });
+  }
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      status: 'failed update user',
+      message: error.details[0].message,
+    });
+  }
   if (req.user.id === req.params.id || req.user.is_admin) {
     if (req.body.password) {
       req.body.password = CryptoJS.AES.encrypt(
