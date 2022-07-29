@@ -32,6 +32,10 @@
         font-weight: 500;
         cursor: pointer;
       }
+      .loginButton:hover {
+        background-color: rgb(170, 48, 48);
+        color: white;
+      }
     }
   }
 
@@ -86,6 +90,10 @@
           color: white;
           font-size: 22px;
           cursor: pointer;
+      }
+      .registerButton:hover{
+          background-color: rgb(163, 53, 53);
+          color: white;
       }
     }
   }

@@ -14,7 +14,7 @@ const Home = ({ type }) => {
       try {
         const res = await axios.get(`lists${type ? '?type=' + type : ''}${genre ? '&genre=' + genre : ''}`, {
           headers: {
-            token: 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken,
+            token: 'bearer ' + JSON.parse(localStorage.getItem('user')).accessToken,
           },
         });
         setLists(res.data);
