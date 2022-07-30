@@ -2,9 +2,10 @@ const router = require('express').Router();
 const Joi = require('joi');
 const Movie = require('../models/Movies');
 const verifyUser = require('../src/verifyToken');
+const csrfProtection = require('../security/csrf');
 
 // Create Movie
-router.post('/', verifyUser, async (req, res) => {
+router.post('/', verifyUser, csrfProtection, async (req, res) => {
   if (req.user.is_admin) {
     const schema = Joi.object({
       title: Joi.string().min(3).max(10).required(),
@@ -31,7 +32,7 @@ router.post('/', verifyUser, async (req, res) => {
       return res.status(200).json({
         status: 'success',
         message: 'Movie created successfully',
-        data: result,
+        data: { result, csrfToken: req.csrfToken() },
       });
     } catch (err) {
       return res.status(500).json({
@@ -47,7 +48,7 @@ router.post('/', verifyUser, async (req, res) => {
 });
 
 // Update Movie
-router.put('/:id', verifyUser, async (req, res) => {
+router.put('/:id', verifyUser, csrfProtection, async (req, res) => {
   if (req.user.is_admin) {
     try {
       const result = await Movie.findByIdAndUpdate(
@@ -58,7 +59,7 @@ router.put('/:id', verifyUser, async (req, res) => {
       return res.status(200).json({
         status: 'success',
         message: 'Movie updated successfully',
-        data: result,
+        data: { result, csrfToken: req.csrfToken() },
       });
     } catch (err) {
       return res.status(500).json({
@@ -96,13 +97,13 @@ router.delete('/:id', verifyUser, async (req, res) => {
 });
 
 // Get Movie
-router.get('/:id', verifyUser, async (req, res) => {
+router.get('/:id', verifyUser, csrfProtection, async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
     return res.status(200).json({
       status: 'success',
       message: 'Movie fetched successfully',
-      data: movie,
+      data: { movie, csrfToken: req.csrfToken() },
     });
   } catch (err) {
     return res.status(500).json({
@@ -113,7 +114,7 @@ router.get('/:id', verifyUser, async (req, res) => {
 });
 
 // Get Random Movie
-router.get('/random', verifyUser, async (req, res) => {
+router.get('/random', verifyUser, csrfProtection, async (req, res) => {
   const query = req.query.type;
   let movies;
   try {
@@ -131,7 +132,7 @@ router.get('/random', verifyUser, async (req, res) => {
     return res.status(200).json({
       status: 'success',
       message: 'Movie fetched successfully',
-      data: movies,
+      data: { movies, csrfToken: req.csrfToken() },
     });
   } catch (err) {
     return res.status(500).json({
@@ -142,14 +143,14 @@ router.get('/random', verifyUser, async (req, res) => {
 });
 
 // Get all movie
-router.get('/', verifyUser, async (req, res) => {
+router.get('/', verifyUser, csrfProtection, async (req, res) => {
   if (req.user.is_admin) {
     try {
       const movies = await Movie.find();
       return res.status(200).json({
         status: 'success',
         message: 'Movies fetched successfully',
-        data: movies,
+        data: { movies, csrfToken: req.csrfToken() },
       });
     } catch (err) {
       return res.status(500).json({

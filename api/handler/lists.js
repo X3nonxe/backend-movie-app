@@ -2,9 +2,10 @@ const router = require('express').Router();
 const Joi = require('joi');
 const List = require('../models/List');
 const verifyUser = require('../src/verifyToken');
+const csrfProtection = require('../security/csrf');
 
 // Create List
-router.post('/', verifyUser, async (req, res) => {
+router.post('/', verifyUser, csrfProtection, async (req, res) => {
   if (req.user.is_admin) {
     const schema = Joi.object({
       title: Joi.string().min(3).max(10).required(),
@@ -24,7 +25,7 @@ router.post('/', verifyUser, async (req, res) => {
       return res.status(200).json({
         status: 'success',
         message: 'List created successfully',
-        data: result,
+        data: { result, csrfToken: req.csrfToken() },
       });
     } catch (err) {
       return res.status(500).json({
@@ -40,7 +41,7 @@ router.post('/', verifyUser, async (req, res) => {
 });
 
 // Get List
-router.get('/', verifyUser, async (req, res) => {
+router.get('/', verifyUser, csrfProtection, async (req, res) => {
   const typeList = req.query.type;
   const genreList = req.query.genre;
   let list = [];
@@ -63,7 +64,7 @@ router.get('/', verifyUser, async (req, res) => {
     return res.status(200).json({
       status: 'success',
       message: 'List fetched successfully',
-      data: list,
+      data: { list, csrfToken: req.csrfToken() },
     });
   } catch (err) {
     return res.status(500).json({

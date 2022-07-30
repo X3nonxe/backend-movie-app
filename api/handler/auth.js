@@ -4,9 +4,11 @@ const Joi = require('joi');
 const CryptoJS = require('crypto-js');
 const Jwt = require('jsonwebtoken');
 const User = require('../models/Users');
+const bruteForce = require('../security/bruteForce');
+const csrfProtection = require('../security/csrf');
 
 // Register
-router.post('/register', async (req, res) => {
+router.post('/register', csrfProtection, async (req, res) => {
   // validate user input
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
@@ -63,6 +65,7 @@ router.post('/register', async (req, res) => {
       status: 'success',
       message: 'Successfully registered',
       data: user,
+      csrfToken: req.csrfToken(),
     });
   } catch (err) {
     return res.status(400).json({
@@ -72,7 +75,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post('/login', bruteForce, csrfProtection, async (req, res) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
@@ -132,7 +135,7 @@ router.post('/login', async (req, res) => {
     return res.status(200).json({
       status: 'success',
       message: 'Successfully logged in',
-      data: { ...info, accessToken },
+      data: { ...info, accessToken, csrfToken: req.csrfToken() },
     });
   } catch (err) {
     return res.status(400).send(err);
