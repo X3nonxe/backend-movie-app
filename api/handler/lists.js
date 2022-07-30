@@ -1,10 +1,23 @@
 const router = require('express').Router();
+const Joi = require('joi');
 const List = require('../models/List');
 const verifyUser = require('../src/verifyToken');
 
 // Create List
 router.post('/', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
+    const schema = Joi.object({
+      title: Joi.string().min(3).max(10).required(),
+      type: Joi.string().min(3).max(10),
+      genre: Joi.string().min(3).max(10),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.response(400).json({
+        status: 'failed to create list',
+        message: error.details[0].message,
+      });
+    }
     const listMovie = new List(req.body);
     try {
       const result = await listMovie.save();

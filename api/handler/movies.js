@@ -1,10 +1,30 @@
 const router = require('express').Router();
+const Joi = require('joi');
 const Movie = require('../models/Movies');
 const verifyUser = require('../src/verifyToken');
 
 // Create Movie
 router.post('/', verifyUser, async (req, res) => {
   if (req.user.is_admin) {
+    const schema = Joi.object({
+      title: Joi.string().min(3).max(10).required(),
+      desc: Joi.string().min(3).max(100).required(),
+      img: Joi.string().min(3).max(100),
+      img_title: Joi.string().min(3).max(100),
+      img_sm: Joi.string().min(3).max(100),
+      trailer: Joi.string().min(3).max(100),
+      video: Joi.string().min(3).max(100),
+      year: Joi.string().min(4).max(4),
+      limit: Joi.number().min(1).max(10),
+      genre: Joi.string().min(3).max(10),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: error.details[0].message,
+      });
+    }
     const movie = new Movie(req.body);
     try {
       const result = await movie.save();
