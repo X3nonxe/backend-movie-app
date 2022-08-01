@@ -39,6 +39,12 @@ router.post('/register', csrfProtection, async (req, res) => {
       message: 'Username is required',
     });
   }
+  if (req.body.username.length < 1 && req.body.password.length < 1 && req.body.email.length < 1) {
+    return res.status(400).json({
+      status: 'failed to register',
+      message: 'Username, Password and Email are required',
+    });
+  }
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({
@@ -78,8 +84,13 @@ router.post('/register', csrfProtection, async (req, res) => {
 router.post('/login', bruteForce, csrfProtection, async (req, res) => {
   try {
     const schema = Joi.object({
-      email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-      password: Joi.string().min(8).max(16).pattern(/^[a-zA-Z0-9]{3,30}$/)
+      email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+        .required(),
+      password: Joi.string()
+        .min(8)
+        .max(16)
+        .pattern(/^[a-zA-Z0-9]{3,30}$/)
         .required(),
     });
     if (req.body.email.length < 1) {
@@ -106,6 +117,13 @@ router.post('/login', bruteForce, csrfProtection, async (req, res) => {
       return res.status(400).json({
         status: 'failed to login',
         message: 'Email or password is required',
+      });
+    }
+    // invalid email and password
+    if (req.body.email.length < 1 && req.body.password.length < 1) {
+      return res.status(400).json({
+        status: 'failed to register',
+        message: 'Email and Password are required',
       });
     }
     if (!user) {

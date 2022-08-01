@@ -1,9 +1,13 @@
 const bouncer = require('express-bouncer');
 
-bouncer.whitelist.push('127.0.0.1');
-bouncer.blocked = (req, res, next, remaining) => res.status(429).json({
-  status: 'error',
-  message: `too many requests, please try again later${remaining / 1000} seconds`,
-});
+bouncer.blocked = async (req, res, next, remaining) => {
+  try {
+    await res.json({
+      message: `Too many requests, please try again in ${remaining} seconds.`,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-module.exports = bouncer.blocked;
+module.exports = bouncer;

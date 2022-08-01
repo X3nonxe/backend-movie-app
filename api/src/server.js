@@ -6,6 +6,7 @@ const toobusy = require('toobusy-js');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const csp = require('helmet-csp');
+const nocache = require('nocache');
 const auth = require('../handler/auth');
 const user = require('../handler/users');
 const movie = require('../handler/movies');
@@ -27,7 +28,7 @@ app.use(csp({
     styleSrc: [" 'none' "],
   },
 }));
-app.use(helmet.noCache());
+app.use(nocache());
 
 // routing
 app.use('/api/auth', auth);
@@ -35,6 +36,7 @@ app.use('/api/users', user);
 app.use('/api/movies', movie);
 app.use('/api/lists', list);
 
+// database connection
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -47,6 +49,7 @@ mongoose
     console.log(err);
   });
 
+// server connection
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
   // monitor the event loop
