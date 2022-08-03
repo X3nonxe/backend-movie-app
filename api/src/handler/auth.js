@@ -18,6 +18,12 @@ const register = async (req, res) => {
       .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
       .required(),
   });
+  if (req.body.username.length < 1 && req.body.password.length < 1 && req.body.email.length < 1) {
+    return res.status(400).json({
+      status: 'failed to register',
+      message: 'Username, Password and Email are required',
+    });
+  }
   if (req.body.email.length < 1) {
     return res.status(400).json({
       status: 'failed to register',
@@ -34,12 +40,6 @@ const register = async (req, res) => {
     return res.status(400).json({
       status: 'failed to register',
       message: 'Username is required',
-    });
-  }
-  if (req.body.username.length < 1 && req.body.password.length < 1 && req.body.email.length < 1) {
-    return res.status(400).json({
-      status: 'failed to register',
-      message: 'Username, Password and Email are required',
     });
   }
   const { error } = schema.validate(req.body);
@@ -89,6 +89,13 @@ const login = async (req, res) => {
         .pattern(/^[a-zA-Z0-9]{3,30}$/)
         .required(),
     });
+    // invalid email and password
+    if (req.body.email.length < 1 && req.body.password.length < 1) {
+      return res.status(400).json({
+        status: 'failed to register',
+        message: 'Email and Password are required',
+      });
+    }
     if (req.body.email.length < 1) {
       return res.status(400).json({
         status: 'failed to register',
@@ -104,24 +111,11 @@ const login = async (req, res) => {
     const { error } = schema.validate(req.body);
     if (error) {
       return res.status(400).json({
-        status: 'failed to register',
+        status: 'failed to login',
         message: error.details[0].message,
       });
     }
     const user = await User.findOne({ email: req.body.email });
-    if (req.body.email.length < 1 || req.body.password.length < 1) {
-      return res.status(400).json({
-        status: 'failed to login',
-        message: 'Email or password is required',
-      });
-    }
-    // invalid email and password
-    if (req.body.email.length < 1 && req.body.password.length < 1) {
-      return res.status(400).json({
-        status: 'failed to register',
-        message: 'Email and Password are required',
-      });
-    }
     if (!user) {
       return res.status(400).json({
         status: 'failed to login',
