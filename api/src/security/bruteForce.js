@@ -1,13 +1,9 @@
-const bouncer = require('express-bouncer');
+const limitter = require('express-rate-limit');
 
-bouncer.blocked = async (req, res, next, remaining) => {
-  try {
-    await res.json({
-      message: `Too many requests, please try again in ${remaining} seconds.`,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+const bruteForce = limitter({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Too many requests from this IP, please try again in 15 minutes',
+});
 
-module.exports = bouncer;
+module.exports = bruteForce;
