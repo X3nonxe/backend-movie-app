@@ -1,12 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-const router = require('express').Router();
 const CryptoJS = require('crypto-js');
 const Joi = require('joi');
 const User = require('../models/Users');
-const verifyUser = require('../src/verifyToken');
 
 // Update user by id
-router.put('/:id', verifyUser, async (req, res) => {
+const updateUserById = async (req, res) => {
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
     password: Joi.string()
@@ -77,10 +75,10 @@ router.put('/:id', verifyUser, async (req, res) => {
       message: 'You can only update your own account',
     });
   }
-});
+};
 
 // Delete
-router.delete('/:id', verifyUser, async (req, res) => {
+const deleteUser = async (req, res) => {
   if (req.user.id === req.params.id || req.user.is_admin) {
     try {
       await User.findByIdAndDelete(req.params.id);
@@ -99,10 +97,10 @@ router.delete('/:id', verifyUser, async (req, res) => {
     status: 'faild',
     message: 'You can only delete your own account',
   });
-});
+};
 
 // Get user by id
-router.get('/find/:id', verifyUser, async (req, res) => {
+const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...info } = user._doc;
@@ -117,11 +115,11 @@ router.get('/find/:id', verifyUser, async (req, res) => {
       message: err.message,
     });
   }
-});
+};
 
 // Get all user
 // eslint-disable-next-line consistent-return
-router.get('/', verifyUser, async (req, res) => {
+const getAllUser = async (req, res) => {
   const query = req.query.new;
   if (req.user.is_admin) {
     try {
@@ -143,10 +141,10 @@ router.get('/', verifyUser, async (req, res) => {
       message: 'You are not allowed to see all users',
     });
   }
-});
+};
 
 // Users Stats
-router.get('/stats', async (req, res) => {
+const userStats = async (req, res) => {
   const today = new Date();
   const year = today.setFullYear(today.setFullYear() - 1);
   const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -177,6 +175,8 @@ router.get('/stats', async (req, res) => {
       message: err.message,
     });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  updateUserById, deleteUser, getUserById, getAllUser, userStats,
+};

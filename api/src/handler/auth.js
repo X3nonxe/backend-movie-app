@@ -1,14 +1,11 @@
 /* eslint-disable no-underscore-dangle */
-const router = require('express').Router();
 const Joi = require('joi');
 const CryptoJS = require('crypto-js');
 const Jwt = require('jsonwebtoken');
 const User = require('../models/Users');
-const bruteForce = require('../security/bruteForce');
-const csrfProtection = require('../security/csrf');
 
 // Register
-router.post('/register', csrfProtection, async (req, res) => {
+const register = async (req, res) => {
   // validate user input
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
@@ -78,10 +75,10 @@ router.post('/register', csrfProtection, async (req, res) => {
       error: err.message,
     });
   }
-});
+};
 
 // Login
-router.post('/login', bruteForce, csrfProtection, async (req, res) => {
+const login = async (req, res) => {
   try {
     const schema = Joi.object({
       email: Joi.string()
@@ -153,11 +150,11 @@ router.post('/login', bruteForce, csrfProtection, async (req, res) => {
     return res.status(200).json({
       status: 'success',
       message: 'Successfully logged in',
-      data: { ...info, accessToken, csrfToken: req.csrfToken() },
+      data: { ...info, accessToken },
     });
   } catch (err) {
     return res.status(400).send(err);
   }
-});
+};
 
-module.exports = router;
+module.exports = { register, login };

@@ -1,11 +1,8 @@
-const router = require('express').Router();
 const Joi = require('joi');
 const Movie = require('../models/Movies');
-const verifyUser = require('../src/verifyToken');
-const csrfProtection = require('../security/csrf');
 
 // Create Movie
-router.post('/', verifyUser, csrfProtection, async (req, res) => {
+const createMovie = async (req, res) => {
   if (req.user.is_admin) {
     const schema = Joi.object({
       title: Joi.string().min(3).max(10).required(),
@@ -45,16 +42,20 @@ router.post('/', verifyUser, csrfProtection, async (req, res) => {
     status: 'failed',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
 // Update Movie
-router.put('/:id', verifyUser, csrfProtection, async (req, res) => {
+const updateMovie = async (req, res) => {
   if (req.user.is_admin) {
     try {
       const result = await Movie.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body },
-        { new: true },
+        {
+          $set: req.body,
+        },
+        {
+          new: true,
+        },
       );
       return res.status(200).json({
         status: 'success',
@@ -72,10 +73,10 @@ router.put('/:id', verifyUser, csrfProtection, async (req, res) => {
     status: 'failed',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
 // Delete Movie
-router.delete('/:id', verifyUser, async (req, res) => {
+const deleteMovie = async (req, res) => {
   if (req.user.is_admin) {
     try {
       await Movie.findByIdAndDelete(req.params.id);
@@ -94,10 +95,10 @@ router.delete('/:id', verifyUser, async (req, res) => {
     status: 'failed',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
 // Get Movie
-router.get('/:id', verifyUser, csrfProtection, async (req, res) => {
+const getMovie = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
     return res.status(200).json({
@@ -111,23 +112,17 @@ router.get('/:id', verifyUser, csrfProtection, async (req, res) => {
       message: err.message,
     });
   }
-});
+};
 
 // Get Random Movie
-router.get('/random', verifyUser, csrfProtection, async (req, res) => {
+const getRandomMovie = async (req, res) => {
   const query = req.query.type;
   let movies;
   try {
     if (query === 'series') {
-      movies = await Movie.aggregate([
-        { $match: { is_series: true } },
-        { $sample: { size: 1 } },
-      ]);
+      movies = await Movie.aggregate([{ $match: { is_series: true } }, { $sample: { size: 1 } }]);
     } else {
-      movies = await Movie.aggregate([
-        { $match: { is_series: false } },
-        { $sample: { size: 1 } },
-      ]);
+      movies = await Movie.aggregate([{ $match: { is_series: false } }, { $sample: { size: 1 } }]);
     }
     return res.status(200).json({
       status: 'success',
@@ -140,10 +135,10 @@ router.get('/random', verifyUser, csrfProtection, async (req, res) => {
       message: err.message,
     });
   }
-});
+};
 
 // Get all movie
-router.get('/', verifyUser, csrfProtection, async (req, res) => {
+const getAllMovie = async (req, res) => {
   if (req.user.is_admin) {
     try {
       const movies = await Movie.find();
@@ -163,6 +158,13 @@ router.get('/', verifyUser, csrfProtection, async (req, res) => {
     status: 'failed',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
-module.exports = router;
+module.exports = {
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  getMovie,
+  getAllMovie,
+  getRandomMovie,
+};

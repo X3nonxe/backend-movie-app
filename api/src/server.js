@@ -7,10 +7,7 @@ const hpp = require('hpp');
 const helmet = require('helmet');
 const csp = require('helmet-csp');
 const nocache = require('nocache');
-const auth = require('../handler/auth');
-const user = require('../handler/users');
-const movie = require('../handler/movies');
-const list = require('../handler/lists');
+const router = require('./handler/routes');
 
 const app = express();
 dotenv.config();
@@ -31,10 +28,7 @@ app.use(csp({
 app.use(nocache());
 
 // routing
-app.use('/api/auth', auth);
-app.use('/api/users', user);
-app.use('/api/movies', movie);
-app.use('/api/lists', list);
+app.use(router);
 
 // database connection
 mongoose

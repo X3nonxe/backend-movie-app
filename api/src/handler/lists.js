@@ -1,11 +1,8 @@
-const router = require('express').Router();
 const Joi = require('joi');
 const List = require('../models/List');
-const verifyUser = require('../src/verifyToken');
-const csrfProtection = require('../security/csrf');
 
 // Create List
-router.post('/', verifyUser, csrfProtection, async (req, res) => {
+const createList = async (req, res) => {
   if (req.user.is_admin) {
     const schema = Joi.object({
       title: Joi.string().min(3).max(10).required(),
@@ -38,10 +35,10 @@ router.post('/', verifyUser, csrfProtection, async (req, res) => {
     status: 'error',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
 // Get List
-router.get('/', verifyUser, csrfProtection, async (req, res) => {
+const getList = async (req, res) => {
   const typeList = req.query.type;
   const genreList = req.query.genre;
   let list = [];
@@ -72,10 +69,10 @@ router.get('/', verifyUser, csrfProtection, async (req, res) => {
       message: err.message,
     });
   }
-});
+};
 
 // Delete List
-router.delete('/:id', verifyUser, async (req, res) => {
+const deleteList = async (req, res) => {
   if (req.user.is_admin) {
     try {
       await List.findByIdAndDelete(req.params.id);
@@ -94,6 +91,6 @@ router.delete('/:id', verifyUser, async (req, res) => {
     status: 'error',
     message: 'You are not authorized to perform this action',
   });
-});
+};
 
-module.exports = router;
+module.exports = { createList, getList, deleteList };
