@@ -16,6 +16,19 @@ const updateUserById = async (req, res) => {
       .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
       .required(),
   });
+  const isInputNotFound = req.body.email.length < 1 && req.body.password.length < 1;
+  if (req.body.username.length < 1 && isInputNotFound) {
+    return res.status(400).json({
+      status: 'failed to update',
+      message: 'Username, email, and password are required',
+    });
+  }
+  if (isInputNotFound) {
+    return res.status(400).json({
+      status: 'failed to update',
+      message: 'Email and password is required',
+    });
+  }
   if (req.body.email.length < 1) {
     return res.status(400).json({
       status: 'failed to update',

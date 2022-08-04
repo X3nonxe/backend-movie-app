@@ -172,7 +172,7 @@ describe('Register', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to register',
-      message: '"email" must be a valid email',
+      message: '\"email\" must be a valid email',
     });
   });
 });
@@ -211,7 +211,7 @@ describe('Login', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
-      message: '"password" length must be less than or equal to 16 characters long',
+      message: '\"password\" length must be less than or equal to 16 characters long',
     });
   });
   test('password less than 3 character', async () => {
@@ -229,7 +229,7 @@ describe('Login', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
-      message: '"password" length must be at least 8 characters long',
+      message: '\"password\" length must be at least 8 characters long',
     });
   });
   test('invalid email input', async () => {

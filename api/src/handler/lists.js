@@ -16,6 +16,12 @@ const createList = async (req, res) => {
         message: error.details[0].message,
       });
     }
+    if (req.body.title.length < 1) {
+      return res.status(400).json({
+        status: 'failed to create list',
+        message: 'title is required',
+      });
+    }
     const listMovie = new List(req.body);
     try {
       const result = await listMovie.save();
