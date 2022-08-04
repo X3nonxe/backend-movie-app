@@ -92,19 +92,19 @@ const login = async (req, res) => {
     // invalid email and password
     if (req.body.email.length < 1 && req.body.password.length < 1) {
       return res.status(400).json({
-        status: 'failed to register',
+        status: 'failed to login',
         message: 'Email and Password are required',
       });
     }
     if (req.body.email.length < 1) {
       return res.status(400).json({
-        status: 'failed to register',
+        status: 'failed to login',
         message: 'Email is required',
       });
     }
     if (req.body.password.length < 1) {
       return res.status(400).json({
-        status: 'failed to register',
+        status: 'failed to login',
         message: 'Password is required',
       });
     }

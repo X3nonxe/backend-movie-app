@@ -172,45 +172,7 @@ describe('Register', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to register',
-      message: '\"email\" must be a valid email',
-    });
-  });
-  test('success register', async () => {
-    const req = {
-      body: {
-        email: 'test@gmail.com',
-        password: 'test12345678',
-        username: 'test',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await auth.register(req, res);
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'success',
-      message: 'Successfully registered',
-    });
-  });
-  test('email is already registered', async () => {
-    const req = {
-      body: {
-        email: 'test@gmail.com',
-        password: 'test12345678',
-        username: 'test',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await auth.register(req, res);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to register',
-      message: 'Email is already registered',
+      message: '"email" must be a valid email',
     });
   });
 });
@@ -231,7 +193,7 @@ describe('Login', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
-      message: '\"email\" must be a valid email',
+      message: '"email" must be a valid email',
     });
   });
   test('password more than 30 character', async () => {
@@ -249,7 +211,7 @@ describe('Login', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
-      message: '\"password\" length must be less than or equal to 30 characters long',
+      message: '"password" length must be less than or equal to 16 characters long',
     });
   });
   test('password less than 3 character', async () => {
@@ -267,7 +229,7 @@ describe('Login', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
-      message: '\"password\" length must be less than or equal to 30 characters long',
+      message: '"password" length must be at least 8 characters long',
     });
   });
   test('invalid email input', async () => {
@@ -322,60 +284,6 @@ describe('Login', () => {
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to login',
       message: 'Email and Password are required',
-    });
-  });
-  test('user does not exist', async () => {
-    const req = {
-      body: {
-        email: 'testting@gmail.com',
-        password: 'test12345678',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await auth.login(req, res);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to login',
-      message: 'User does not exist',
-    });
-  });
-  test('incorrect password', async () => {
-    const req = {
-      body: {
-        email: 'test@gmail.com',
-        password: 'testingpassword',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await auth.login(req, res);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to login',
-      message: 'Password is incorrect',
-    });
-  });
-  test('success to login', async () => {
-    const req = {
-      body: {
-        email: 'test@gmail.com',
-        password: 'test12345678',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await auth.login(req, res);
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'success',
-      message: 'Successfully logged in',
     });
   });
 });
