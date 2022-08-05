@@ -23,6 +23,25 @@ const createMovie = async (req, res) => {
         message: error.details[0].message,
       });
     }
+    const isInputUserNotEmpty = req.body.title.length < 1 && req.body.desc.length < 1;
+    if (isInputUserNotEmpty) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'title and desc are required',
+      });
+    }
+    if (req.body.title.length < 1) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'title is required',
+      });
+    }
+    if (req.body.desc.length < 1) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'desc is required',
+      });
+    }
     const movie = new Movie(req.body);
     try {
       const result = await movie.save();
@@ -47,6 +66,44 @@ const createMovie = async (req, res) => {
 // Update Movie
 const updateMovie = async (req, res) => {
   if (req.user.is_admin) {
+    const schema = Joi.object({
+      title: Joi.string().min(3).max(10).required(),
+      desc: Joi.string().min(3).max(100).required(),
+      img: Joi.string().min(3).max(100),
+      img_title: Joi.string().min(3).max(100),
+      img_sm: Joi.string().min(3).max(100),
+      trailer: Joi.string().min(3).max(100),
+      video: Joi.string().min(3).max(100),
+      year: Joi.string().min(4).max(4),
+      limit: Joi.number().min(1).max(10),
+      genre: Joi.string().min(3).max(10),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: error.details[0].message,
+      });
+    }
+    const isInputUserNotEmpty = req.body.title.length < 1 && req.body.desc.length < 1;
+    if (isInputUserNotEmpty) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'title and desc are required',
+      });
+    }
+    if (req.body.title.length < 1) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'title is required',
+      });
+    }
+    if (req.body.desc.length < 1) {
+      return res.status(400).json({
+        status: 'failed to create movie',
+        message: 'desc is required',
+      });
+    }
     try {
       const result = await Movie.findByIdAndUpdate(
         req.params.id,
