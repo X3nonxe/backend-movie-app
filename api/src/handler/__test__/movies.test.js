@@ -20,14 +20,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"title" length must be at least 3 characters long',
+      message: '\"title\" length must be at least 3 characters long',
     });
   });
   test('title must be less than 10 character', async () => {
@@ -46,14 +46,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"title" length must be less than or equal to 10 characters long',
+      message: '\"title\" length must be less than or equal to 10 characters long',
     });
   });
   test('desc must be more than 3 character', async () => {
@@ -72,14 +72,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"desc" length must be at least 3 characters long',
+      message: '\"desc\" length must be at least 3 characters long',
     });
   });
   test('desc must be less than 100 character', async () => {
@@ -98,14 +98,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"desc" length must be less than or equal to 100 characters long',
+      message: '\"desc\" length must be less than or equal to 100 characters long',
     });
   });
   test('img must be more than 3 character', async () => {
@@ -124,14 +124,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img" length must be at least 3 characters long',
+      message: '\"img\" length must be at least 3 characters long',
     });
   });
   test('img must be less than 100 character', async () => {
@@ -150,14 +150,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img" length must be less than or equal to 100 characters long',
+      message: '\"img\" length must be less than or equal to 100 characters long',
     });
   });
   test('img_title must be more than 3 character', async () => {
@@ -176,14 +176,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img_title" length must be at least 3 characters long',
+      message: '\"img_title\" length must be at least 3 characters long',
     });
   });
   test('img_title must be less than 100 character', async () => {
@@ -202,14 +202,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img_title" length must be less than or equal to 100 characters long',
+      message: '\"img_title\" length must be less than or equal to 100 characters long',
     });
   });
   test('img_sm must be more than 3 character', async () => {
@@ -228,14 +228,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img_sm" length must be at least 3 characters long',
+      message: '\"img_sm\" length must be at least 3 characters long',
     });
   });
   test('img_sm must be less than 100 character', async () => {
@@ -254,14 +254,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"img_sm" length must be less than or equal to 100 characters long',
+      message: '\"img_sm\" length must be less than or equal to 100 characters long',
     });
   });
   test('trailer must be more than 3 character', async () => {
@@ -280,14 +280,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"trailer" length must be at least 3 characters long',
+      message: '\"trailer\" length must be at least 3 characters long',
     });
   });
   test('trailer must be less than 100 character', async () => {
@@ -306,14 +306,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"trailer" length must be less than or equal to 100 characters long',
+      message: '\"trailer\" length must be less than or equal to 100 characters long',
     });
   });
   test('video must be more than 3 character', async () => {
@@ -332,14 +332,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"video" length must be at least 3 characters long',
+      message: '\"video\" length must be at least 3 characters long',
     });
   });
   test('video must be less than 100 character', async () => {
@@ -358,14 +358,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"video" length must be less than or equal to 100 characters long',
+      message: '\"video\" length must be less than or equal to 100 characters long',
     });
   });
   test('year must be more than 4 character', async () => {
@@ -384,14 +384,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"year" length must be at least 4 characters long',
+      message: '\"year\" length must be at least 4 characters long',
     });
   });
   test('desc must be less than 100 character', async () => {
@@ -410,14 +410,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"year" length must be less than or equal to 4 characters long',
+      message: '\"year\" length must be less than or equal to 4 characters long',
     });
   });
   test('limit must be more than 1 character', async () => {
@@ -431,19 +431,19 @@ describe('Create movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: '',
+        limit: 1,
         genre: 'test',
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"limit" length must be at least 1 characters long',
+      message: '\"limit\" length must be at least 1 characters long',
     });
   });
   test('desc must be less than 100 character', async () => {
@@ -462,14 +462,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"limit" length must be less than or equal to 10 characters long',
+      message: '\"limit\" length must be less than or equal to 10 characters long',
     });
   });
   test('genre must be more than 3 character', async () => {
@@ -488,14 +488,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"genre" length must be at least 3 characters long',
+      message: '\"genre\" length must be at least 3 characters long',
     });
   });
   test('desc must be less than 100 character', async () => {
@@ -514,14 +514,14 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '"genre" length must be less than or equal to 10 characters long',
+      message: '\"genre\" length must be less than or equal to 10 characters long',
     });
   });
   test('title and desc must be not empty', async () => {
@@ -540,8 +540,8 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -566,8 +566,8 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -592,8 +592,8 @@ describe('Create movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.createMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -621,8 +621,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -647,8 +647,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -673,8 +673,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -699,8 +699,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -725,14 +725,14 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to update movie',
-      message: '\img\" length must be at least 3 characters long',
+      message: '\"img\" length must be at least 3 characters long',
     });
   });
   test('img must be less than 100 character', async () => {
@@ -751,8 +751,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -777,8 +777,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -803,8 +803,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -829,8 +829,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -855,8 +855,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -881,8 +881,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -907,8 +907,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -933,8 +933,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -959,8 +959,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -985,8 +985,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1011,8 +1011,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1037,8 +1037,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1063,8 +1063,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1089,8 +1089,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1115,8 +1115,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1141,8 +1141,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1167,8 +1167,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -1193,8 +1193,8 @@ describe('Update movies', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await movies.updateMovie(req, res);
     expect(res.status).toHaveBeenCalledWith(400);

@@ -19,38 +19,38 @@ const updateUserById = async (req, res) => {
   const isInputNotFound = req.body.email.length < 1 && req.body.password.length < 1;
   if (req.body.username.length < 1 && isInputNotFound) {
     return res.status(400).json({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Username, email, and password are required',
     });
   }
   if (isInputNotFound) {
     return res.status(400).json({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Email and password is required',
     });
   }
   if (req.body.email.length < 1) {
     return res.status(400).json({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Email is required',
     });
   }
   if (req.body.password.length < 1) {
     return res.status(400).json({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Password is required',
     });
   }
   if (req.body.username.length < 1) {
     return res.status(400).json({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Username is required',
     });
   }
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({
-      status: 'failed update user',
+      status: 'failed to update user',
       message: error.details[0].message,
     });
   }

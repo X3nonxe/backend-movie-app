@@ -19,8 +19,8 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
-      message: '"username" must be at least 3 characters',
+      status: 'failed to update user',
+      message: '"username" length must be at least 3 characters long',
     });
   });
   test('username more than 30 character', async () => {
@@ -38,8 +38,8 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
-      message: '\"username\" length must be less than or equal to 30 characters long',
+      status: 'failed to update user',
+      message: '"username" length must be less than or equal to 30 characters long',
     });
   });
   test('password less than 8 character', async () => {
@@ -57,8 +57,8 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
-      message: '\"password\" length must be at least 8 characters long',
+      status: 'failed to update user',
+      message: '"password" length must be at least 8 characters long',
     });
   });
   test('password more than 30 character', async () => {
@@ -76,8 +76,8 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
-      message: '\"password\" length must be less than or equal to 30 characters long',
+      status: 'failed to update user',
+      message: '"password" length must be less than or equal to 30 characters long',
     });
   });
   test('invalid email format', async () => {
@@ -90,13 +90,13 @@ describe('Users', () => {
     };
     const res = {
       status: Jest.fn().mockReturnThis(),
-      json: Jesn.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
-      message: '\"email\" must be a valid email',
+      status: 'failed to update user',
+      message: '"email" must be a valid email',
     });
   });
   test('required email input', async () => {
@@ -114,7 +114,7 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Email is required',
     });
   });
@@ -133,7 +133,7 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Username is required',
     });
   });
@@ -152,7 +152,7 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Password is required',
     });
   });
@@ -171,7 +171,7 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Email and Password is required',
     });
   });
@@ -190,7 +190,7 @@ describe('Users', () => {
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update',
+      status: 'failed to update user',
       message: 'Username, email, and password are required',
     });
   });

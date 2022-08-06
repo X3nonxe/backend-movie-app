@@ -13,8 +13,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -32,8 +32,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -51,8 +51,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -70,8 +70,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -89,8 +89,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -108,14 +108,14 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create list',
-      message: '\"genre\" length must be less than or equal to 10 characters long',
+      message: '\"genre\" length must be at least 3 characters long',
     });
   });
   test('title is required', async () => {
@@ -127,8 +127,8 @@ describe('List', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await lists.createList(req, res);
     expect(res.status).toHaveBeenCalledWith(400);

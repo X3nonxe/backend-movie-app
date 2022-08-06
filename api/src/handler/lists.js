@@ -3,25 +3,25 @@ const List = require('../models/List');
 
 // Create List
 const createList = async (req, res) => {
-  if (req.user.is_admin) {
-    const schema = Joi.object({
-      title: Joi.string().min(3).max(10).required(),
-      type: Joi.string().min(3).max(10),
-      genre: Joi.string().min(3).max(10),
+  const schema = Joi.object({
+    title: Joi.string().min(3).max(10).required(),
+    type: Joi.string().min(3).max(10),
+    genre: Joi.string().min(3).max(10),
+  });
+  if (req.body.title.length < 1) {
+    return res.status(400).json({
+      status: 'failed to create list',
+      message: 'title is required',
     });
-    const { error } = schema.validate(req.body);
-    if (error) {
-      return res.response(400).json({
-        status: 'failed to create list',
-        message: error.details[0].message,
-      });
-    }
-    if (req.body.title.length < 1) {
-      return res.status(400).json({
-        status: 'failed to create list',
-        message: 'title is required',
-      });
-    }
+  }
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      status: 'failed to create list',
+      message: error.details[0].message,
+    });
+  }
+  if (req.user.is_admin) {
     const listMovie = new List(req.body);
     try {
       const result = await listMovie.save();
