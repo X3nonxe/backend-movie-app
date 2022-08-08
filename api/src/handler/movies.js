@@ -1,14 +1,5 @@
 const Joi = require('joi');
-const redis = require('redis');
-const { promisify } = require('util');
 const Movie = require('../models/Movies');
-
-const redisClient = redis.createClient({
-  host: process.env.REDIS_HOST,
-  prot: process.env.REDIS_PORT,
-});
-const GET_ASYNC = promisify(redisClient.get).bind(redisClient);
-const SET_ASYNC = promisify(redisClient.set).bind(redisClient);
 
 // Create Movie
 const createMovie = async (req, res) => {
@@ -89,26 +80,26 @@ const updateMovie = async (req, res) => {
   const isInputUserNotEmpty = req.body.title.length < 1 && req.body.desc.length < 1;
   if (isInputUserNotEmpty) {
     return res.status(400).json({
-      status: 'failed to create movie',
+      status: 'failed to update movie',
       message: 'title and desc are required',
     });
   }
   if (req.body.title.length < 1) {
     return res.status(400).json({
-      status: 'failed to create movie',
+      status: 'failed to update movie',
       message: 'title is required',
     });
   }
   if (req.body.desc.length < 1) {
     return res.status(400).json({
-      status: 'failed to create movie',
+      status: 'failed to update movie',
       message: 'desc is required',
     });
   }
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({
-      status: 'failed to create movie',
+      status: 'failed to update movie',
       message: error.details[0].message,
     });
   }
@@ -167,21 +158,10 @@ const deleteMovie = async (req, res) => {
 const getMovie = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
-    const reply = await GET_ASYNC('movies');
-    if (reply) {
-      console.log('using cached data');
-      return res.status(200).json({
-        status: 'success',
-        message: 'Movie found successfully',
-        data: { movie, csrfToken: req.csrfToken() },
-      });
-    }
-    const saveMovie = await SET_ASYNC('movies', JSON.stringify(movie), 'EX', 60 * 60 * 24);
-    console.log('saveMovie', saveMovie);
     return res.status(200).json({
       status: 'success',
       message: 'Movie fetched successfully',
-      data: { movie, csrfToken: req.csrfToken() },
+      data: movie,
     });
   } catch (err) {
     return res.status(500).json({

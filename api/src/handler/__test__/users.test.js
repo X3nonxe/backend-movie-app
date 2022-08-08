@@ -127,8 +127,8 @@ describe('Users', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -146,8 +146,8 @@ describe('Users', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -165,14 +165,14 @@ describe('Users', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to update user',
-      message: 'Email and Password is required',
+      message: 'Email and password is required',
     });
   });
   test('required username, email, and password input', async () => {
@@ -184,8 +184,8 @@ describe('Users', () => {
       },
     };
     const res = {
-      status: Jest.fn().mockReturnValue(),
-      json: Jest.fn().mockReturnValue(),
+      status: Jest.fn().mockReturnThis(),
+      json: Jest.fn().mockReturnThis(),
     };
     await users.updateUserById(req, res);
     expect(res.status).toHaveBeenCalledWith(400);

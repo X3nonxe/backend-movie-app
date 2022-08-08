@@ -93,7 +93,7 @@ describe('Create movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: 10,
+        limit: 19,
         genre: 'test',
       },
     };
@@ -394,7 +394,7 @@ describe('Create movies', () => {
       message: '\"year\" length must be at least 4 characters long',
     });
   });
-  test('desc must be less than 100 character', async () => {
+  test('year must be less than 100 character', async () => {
     const req = {
       body: {
         title: 'test',
@@ -420,7 +420,7 @@ describe('Create movies', () => {
       message: '\"year\" length must be less than or equal to 4 characters long',
     });
   });
-  test('limit must be more than 1 character', async () => {
+  test('limit must be less than 100 character', async () => {
     const req = {
       body: {
         title: 'test',
@@ -431,7 +431,7 @@ describe('Create movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: 1,
+        limit: 123456789122222,
         genre: 'test',
       },
     };
@@ -443,33 +443,7 @@ describe('Create movies', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to create movie',
-      message: '\"limit\" length must be at least 1 characters long',
-    });
-  });
-  test('desc must be less than 100 character', async () => {
-    const req = {
-      body: {
-        title: 'test',
-        desc: 'test',
-        img: 'test',
-        img_title: 'test',
-        img_sm: 'test',
-        trailer: 'test',
-        video: 'test',
-        year: 'test',
-        limit: 1000000000000000000000000,
-        genre: 'test',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await movies.createMovie(req, res);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to create movie',
-      message: '\"limit\" length must be less than or equal to 10 characters long',
+      message: '\"limit\" must be less than or equal to 10',
     });
   });
   test('genre must be more than 3 character', async () => {
@@ -509,7 +483,7 @@ describe('Create movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: 10,
+        limit: 3,
         genre: 'testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt',
       },
     };
@@ -694,7 +668,7 @@ describe('Update movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: 10,
+        limit: 6,
         genre: 'test',
       },
     };
@@ -995,7 +969,7 @@ describe('Update movies', () => {
       message: '\"year\" length must be at least 4 characters long',
     });
   });
-  test('desc must be less than 100 character', async () => {
+  test('year must be less than 100 character', async () => {
     const req = {
       body: {
         title: 'test',
@@ -1021,7 +995,7 @@ describe('Update movies', () => {
       message: '\"year\" length must be less than or equal to 4 characters long',
     });
   });
-  test('limit must be more than 1 character', async () => {
+  test('limit must be less than 10 character', async () => {
     const req = {
       body: {
         title: 'test',
@@ -1032,7 +1006,7 @@ describe('Update movies', () => {
         trailer: 'test',
         video: 'test',
         year: 'test',
-        limit: '',
+        limit: 1883772899187371,
         genre: 'test',
       },
     };
@@ -1044,33 +1018,7 @@ describe('Update movies', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       status: 'failed to update movie',
-      message: '\"limit\" length must be at least 1 characters long',
-    });
-  });
-  test('desc must be less than 100 character', async () => {
-    const req = {
-      body: {
-        title: 'test',
-        desc: 'test',
-        img: 'test',
-        img_title: 'test',
-        img_sm: 'test',
-        trailer: 'test',
-        video: 'test',
-        year: 'test',
-        limit: 1000000000000000000000000,
-        genre: 'test',
-      },
-    };
-    const res = {
-      status: Jest.fn().mockReturnThis(),
-      json: Jest.fn().mockReturnThis(),
-    };
-    await movies.updateMovie(req, res);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 'failed to update movie',
-      message: '\"limit\" length must be less than or equal to 10 characters long',
+      message: '\"limit\" must be less than or equal to 10',
     });
   });
   test('genre must be more than 3 character', async () => {
